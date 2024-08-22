@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const checkAuthorization = require('./verifyToken');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 // Connect to MongoDB Atlas 
