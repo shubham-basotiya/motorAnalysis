@@ -10,7 +10,7 @@ import User from './User';
 import Edit from './Edit';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import ForgetPwd from './ForgetPwd';
+import ForgetPwd from './ForgetPwd';
 
 function setToken(userToken) {
     sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -80,7 +80,7 @@ export default function Home() {
                 <div className='row'>
                     <div className="col-md-5" style={{borderRight: "5px solid #000", borderWidth: "0.5em"}}>
                         <Routes>
-                            {/* <Route path='/forgetPwd' element={<ForgetPwd setToken={setToken} />} /> */}
+                            <Route path='/forgetPwd' element={<ForgetPwd setToken={setToken} />} />
                             <Route path="/signup" element={<SignUp setToken={setToken} /> } />
                             <Route path="/" element={<Login setToken={setToken} />} />
                         </Routes>

@@ -120,7 +120,8 @@ app.put('/forgetpassword', async (req, res) => {
             if(!user){
                 return res.json({"token": "no data"});
             }
-            const hashPwd = await bcrypt.hash(req.body.newPassword, new Date().getTime());
+            const salt = await bcrypt.genSalt(10);
+            const hashPwd = await bcrypt.hash(req.body.newPassword, salt);
             const updatedData = await Motorfile.findByIdAndUpdate(user._id,
                 {
                     password: hashPwd,
@@ -152,6 +153,7 @@ app.put('/forgetpassword', async (req, res) => {
 const upload = multer({storage: multer.memoryStorage() });
 
 app.post('/signup', upload.single('profile'), async(req, res) => {
+    console.log("req data : ", req.body);
     // const authHeader = req.headers['authorization']
     // console.log(authHeader);
     // const token = authHeader.split(' ')[1];
@@ -173,8 +175,11 @@ app.post('/signup', upload.single('profile'), async(req, res) => {
                 data: req.file.buffer
             };
         }
-        const hashPwd = await bcrypt.hash(password, new Date().getTime());
-        const savedUser = new Motorfile({fname, lname, email, hashPwd, profile});
+        console.log("req.file : ", req.file);
+        const salt = await bcrypt.genSalt(10);
+        const hashPwd = await bcrypt.hash(password, salt);
+        console.log("hashPwd : ", hashPwd);
+        const savedUser = new Motorfile({fname, lname, email, password: hashPwd, profile});
         const savedUserData = await savedUser.save();
         console.log("savedUserData : " + savedUserData);
         const user = await Motorfile.findOne({email: savedUserData.email});
@@ -248,8 +253,8 @@ app.patch('/edit/:id', [checkAuthorization, upload.single('profile')], async (re
                 data: req.file.buffer
             }
         }
-
-        const hashPwd = await bcrypt.hash(req.body.password, new Date().getTime());
+        const salt = await bcrypt.genSalt(10);
+        const hashPwd = await bcrypt.hash(req.body.password, salt);
 
         let updatedData = await Motorfile.findByIdAndUpdate(req.params.id,
             {

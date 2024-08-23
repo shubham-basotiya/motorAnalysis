@@ -56,7 +56,7 @@ export default function SignUp({setToken}){
             <form onSubmit={submitFormData}>
                     <div className="mb-3">
                         <label htmlFor="profilePic" style={{float: "left", fontWeight: "bold"}} class="form-label">Profile Photo </label>
-                        <input class="form-control" type="file" id="profilePic" onChange={e => setProfile(e.target.files[0])} placeholder='profilePic'/> {/*{uploadFieldId ? (<img src={`http://localhost:8080/file/${uploadFieldId}`} className="rounded" alt="Profile" />) : ()} */}
+                        <input className="form-control" type="file" id="profilePic" onChange={e => setProfile(e.target.files[0])} placeholder='profilePic'/> {/*{uploadFieldId ? (<img src={`http://localhost:8080/file/${uploadFieldId}`} className="rounded" alt="Profile" />) : ()} */}
                     </div>
                     <div className='mb-3'>
                         <label htmlFor="fname" style={{float: "left", fontWeight: "bold"}}>First Name </label>
