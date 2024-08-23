@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 
 export default function MotorWorking(){
-    
+    const  motorbackend = 'https://motorbackend.onrender.com';
     let token = sessionStorage.getItem('token');
     let tokenData = JSON.parse(token);
     token = tokenData.token;
@@ -18,7 +18,7 @@ export default function MotorWorking(){
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/motorStatus?motor=${motorStatus}`, {
+        axios.get(`${motorbackend}/motorStatus?motor=${motorStatus}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export default function MotorWorking(){
         } else{
             var motorObj = {userName: loggedInUserName, userEmail: loggedInUserEmail, startTime: Date.now(), status: !(motorStatus)};
         }
-        axios.patch(`http://localhost:8080/motorOn`, motorObj, {
+        axios.patch(`${motorbackend}/motorOn`, motorObj, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
