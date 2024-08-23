@@ -52,9 +52,9 @@ export default function Login({setToken}){
                             <input className="form-control btn btn-dark" type="submit" value="Sign In"/>
                     </div>
                 </form>
-                {/* <div className='mb-3'>
+                <div className='mb-3'>
                     <Link to="/forgetPwd" className='btn btn-dark'>Forget Password</Link>
-                </div> */}
+                </div>
                 <div className='mb-3'>
                     <Link to="/signup" className="btn btn-link">Sign Up</Link>
                 </div>
