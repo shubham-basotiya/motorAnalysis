@@ -62,10 +62,11 @@ const Motorhistory = mongoose.model('Motorhistory', motorSchema);
 
 const app = express();
 
+app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 app.use(express.json());
-app.use(cors());
+
 
 app.post('/login', async (req, res) => {
     console.log("req data: ", req.body);
