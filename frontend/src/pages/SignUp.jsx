@@ -29,26 +29,22 @@ export default function SignUp({setToken}){
         formData.append('email', email);
         formData.append('password', password);
     
-        try {
-          const response = await fetch(`${motorbackend}/signup`, {
-            method: 'POST',
-            body: formData // FormData object
-          });
+        const response = await fetch(`${motorbackend}/signup`, {
+        method: 'POST',
+        body: formData // FormData object
+        });
     
-          const data = await response.json();
-          setUploadFieldId(data.token._id); 
-          setToken(data);
+        const data = await response.json();
         
-        // .then(r =>  r.json().then(data => ({body: data})))
-        // .then(obj => {
-        //     console.log(obj);
-        //     setToken(obj.body);
-        // });
+        if(data.status === 'ok'){
+            setUploadFieldId(data.token._id); 
+            setToken(data.token);
 
-        document.location.href = 'https://motoranalysis.onrender.com/';
-        } catch (error) {
-            console.error('Error uploading profile:', error);
+            document.location.href = 'https://motoranalysis.onrender.com/';
+        } else{
+            alert(data.error + ", This email is already stored. Please give another email.");
         }
+        
     };
 
     return (<div>

@@ -153,6 +153,7 @@ app.put('/forgetpassword', async (req, res) => {
 const upload = multer({storage: multer.memoryStorage() });
 
 app.post('/signup', upload.single('profile'), async(req, res) => {
+    try{
     console.log("req data : ", req.body);
     // const authHeader = req.headers['authorization']
     // console.log(authHeader);
@@ -190,12 +191,21 @@ app.post('/signup', upload.single('profile'), async(req, res) => {
             // res.setHeader("Authorization", `Bearer ${token}`);
             // res.json(token);
     
-            res.json({"token": token});
+            res.json({"token": token, status: "ok"});
         }
         else{
             console.log("else condition");
             res.send("no data");
         }
+    } catch (err) {
+        if (err.code === 11000) {
+          // Duplicate email error
+          res.status(400).json({ status: 'error', error: 'Duplicate email' });
+        } else {
+          // Other errors (e.g., validation errors)
+          res.status(500).json({ status: 'error', error: 'Internal server error' });
+        }
+      }
 })
 
 app.use('/users', async(req, res) => {
